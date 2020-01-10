@@ -5,6 +5,7 @@ const dbconfig = require("../../connection/connectdb");
 let fs = require("fs");
 
 item = {}; // for offline json-server
+assetprint = {};
 
 router.get("/", (req, res) => {
   try {
@@ -15,6 +16,14 @@ router.get("/", (req, res) => {
         var request = new sql.Request(pool);
         request.execute("spLoad_AssetData").then(function(recordset) {
           console.log(recordset.recordset);
+          assetprint[assetlist] = recordset.recordset;
+          var dataset = JSON.stringify(assetprint, null, 2);
+
+          fs.writeFileSync("./routes/StockAll.json", dataset, callback);
+
+          function callback() {
+            console.log("Finished writing temporary storage");
+          }
           res.json(recordset.recordset);
           conn.close();
         });
