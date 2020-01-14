@@ -1,16 +1,40 @@
-import React, { Fragment } from "react";
+//import React, { Fragment, useEffect, useState, useCallback } from "react";
+import React, { Fragment, useEffect, useCallback } from "react";
+
 import { Row, Col, Button, ButtonToolbar, Container } from "react-bootstrap";
 import SearchSelect from "../components/SearchSelect";
+
+import { useSelector, useDispatch } from "react-redux";
+import * as StockPrint from "../actions/StockPrintActions";
 
 import FormNew from "../components/FormSample";
 import FormValidate from "../components/FormValidate";
 
 const TestPages = () => {
+  const asset = useSelector(state => state.stock.assetlist);
+  const dispatch = useDispatch();
+
+  const loadStockPrint = useCallback(async () => {
+    try {
+      await dispatch(StockPrint.getAssetList());
+    } catch (err) {
+      console.error(err.message);
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    loadStockPrint();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div>
-      <Fragment>
-        <SearchSelect />
-      </Fragment>
+      {/* {console.log(asset)} */}
+      <SearchSelect getList={asset} />
+      {/* <p>{asset.length}</p>
+      {asset.map((item, key) => (
+        <li key={item.id}>{item.assetDesc}</li>
+      ))} */}
       <Fragment>
         <ButtonToolbar>
           <Button variant="outline-primary">Primary</Button>

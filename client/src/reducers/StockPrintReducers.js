@@ -1,7 +1,7 @@
 import { GET_ASSET_LIST, SET_ERROR_MSG, SET_LOADING } from "../types/StockType";
 
 const iniState = {
-  assetlist: ""
+  assetlist: []
 };
 
 export default (state = iniState, action) => {
@@ -12,9 +12,15 @@ export default (state = iniState, action) => {
         loading: true
       };
     case GET_ASSET_LIST:
+      //console.log("reducer", action.payload);
       return {
         ...state,
         assetlist: action.payload
+      };
+    case SET_ERROR_MSG:
+      console.log("error");
+      return {
+        ...state
       };
 
     default:

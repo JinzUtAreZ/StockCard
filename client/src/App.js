@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "./components/Bootstrap.min.css";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
@@ -6,7 +6,7 @@ import ReduxThunk from "redux-thunk";
 
 import StockReducer from "../src/reducers/StockPrintReducers";
 
-import Tester from "./Pages/TestPages";
+//import Tester from "./Pages/TestPages";
 import StockCard from "./Pages/StockCard";
 
 const rootReducer = combineReducers({

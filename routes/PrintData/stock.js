@@ -15,14 +15,14 @@ router.get("/", (req, res) => {
       .then(function(pool) {
         var request = new sql.Request(pool);
         request.execute("spLoad_AssetData").then(function(recordset) {
-          console.log(recordset.recordset);
-          assetprint[assetlist] = recordset.recordset;
+          //console.log("routes stock", recordset.recordset);
+          assetprint = recordset.recordset;
           var dataset = JSON.stringify(assetprint, null, 2);
 
           fs.writeFileSync("./routes/StockAll.json", dataset, callback);
 
           function callback() {
-            console.log("Finished writing temporary storage");
+            console.log("routes stock", "Finished writing temporary storage");
           }
           res.json(recordset.recordset);
           conn.close();

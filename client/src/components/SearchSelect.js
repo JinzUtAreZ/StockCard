@@ -1,7 +1,10 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
+
 import Select from "react-select";
-import { useSelector, useDispatch } from "react-redux";
-import * as StockPrint from "../actions/StockPrintActions";
+import makeAnimated from "react-select/lib/animated";
+import "bootstrap/dist/css/bootstrap.css";
+// import { useSelector, useDispatch } from "react-redux";
+// import * as StockPrint from "../actions/StockPrintActions";
 
 // const scaryAnimals = [
 //   { label: "Alligators", value: 1 },
@@ -12,24 +15,68 @@ import * as StockPrint from "../actions/StockPrintActions";
 //   { label: "Snakes", value: 6 }
 // ];
 
-const SelectSearch = () => {
-  const getList = useSelector(state => state.assetlist);
-  const dispatch = useDispatch();
+const SelectSearch = props => {
+  //console.log(props.getList);
+  var dataset = [];
 
-  const loadStockPrint = useCallback(async () => {
-    try {
-      await dispatch(StockPrint.getAssetList());
-    } catch (err) {
-      console.error(err.message);
-    }
-  }, [dispatch]);
+  props.getList.map(items =>
+    dataset.push({
+      label: items.AssetDesc,
+      value: items.Tag_num,
+      assetCode: items.AssetCode,
+      category: items.Category,
+      unit: items.Unit,
+      rackNo: items.RackNo,
+      rowNo: items.RowNo
+    })
+  );
 
-  useEffect(() => {
-    loadStockPrint();
-    // eslint-disable-next-line
-  }, []);
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      borderBottom: "2px dotted green",
+      color: state.isSelected ? "yellow" : "black",
+      backgroundColor: state.isSelected ? "green" : "white"
+    })
+    // control: provided => ({
+    //   ...provided,
+    //   marginTop: "5%"
+    // })
+  };
 
-  return <Select options={getList} />;
+  //// these codes can also be used ////
+
+  // var dataset = [];
+  // props.getList.map(
+  //   items =>
+  //     (dataset = [...dataset, { label: items.AssetDesc, value: items.Tag_num }])
+  // );
+  // console.log(dataset);
+
+  //// these codes can also be used ////
+
+  // const dataset = [];
+  // for (let key in props.getList) {
+  //   if (props.getList.hasOwnProperty(key)) {
+  //     dataset.push({
+  //       label: props.getList[key].AssetDesc,
+  //       value: props.getList[key].Tag_num
+  //     });
+  //   }
+  // }
+  //console.log(dataset);
+
+  return (
+    <Select
+      {...props}
+      styles={customStyles}
+      options={dataset}
+      onChange={props.selhandleChange}
+      autoFocus={true}
+      components={makeAnimated()}
+      //isMulti  //// for multi selection
+    />
+  );
 };
 
 export default SelectSearch;

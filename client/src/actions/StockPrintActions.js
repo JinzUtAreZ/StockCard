@@ -9,9 +9,16 @@ export const setLoading = () => {
 export const getAssetList = () => async dispatch => {
   try {
     setLoading();
+    //const arry = [];
     const response = await fetch("/api/inventory");
     const data = await response.json();
 
+    // for (let key in data) {
+    //   if (data.hasOwnProperty(key)) {
+    //     arry.push({ assetDesc: data[key].AssetDesc });
+    //   }
+    // }
+    // //console.log(arry);
     dispatch({
       type: GET_ASSET_LIST,
       payload: data
