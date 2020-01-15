@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import SearchSelect from "../components/SearchSelect";
 import { Row, Col, Form, Button, InputGroup } from "react-bootstrap";
-import FontAwesomeIcon from "react-fontawesome";
+//import FontAwesomeIcon from "react-fontawesome";
 
 import { useSelector, useDispatch } from "react-redux";
 import * as StockPrint from "../actions/StockPrintActions";
@@ -9,6 +9,12 @@ import * as StockPrint from "../actions/StockPrintActions";
 const StockCard = () => {
   const asset = useSelector(state => state.stock.assetlist);
   const dispatch = useDispatch();
+
+  const [selected, setSelected] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [unit, setUnit] = useState(null);
+  const [rackno, setRackno] = useState(null);
+  const [rowno, setRowno] = useState(null);
 
   const loadStockPrint = useCallback(async () => {
     try {
@@ -21,13 +27,8 @@ const StockCard = () => {
   useEffect(() => {
     loadStockPrint();
     // eslint-disable-next-line
-  }, []);
-
-  const [selected, setSelected] = useState(null);
-  const [category, setCategory] = useState("");
-  const [unit, setUnit] = useState("");
-  const [rackno, setRackno] = useState("");
-  const [rowno, setRowno] = useState("");
+  }, [selected]);
+  //// ung selected dito dapat para sa marker sa select
 
   const handleChange = selected => {
     setSelected(selected);
@@ -111,18 +112,13 @@ const StockCard = () => {
           <Form.Group as={Col} controlId="formStock">
             <InputGroup>
               <InputGroup.Prepend>
-                <InputGroup.Text>
-                  <FontAwesomeIcon
-                    className="super-crazy-colors"
-                    name="rocket"
-                    size="2x"
-                    spin
-                    style={{ textShadow: "0 1px 0 rgba(0, 0, 0, 0.1)" }}
-                  />
-                </InputGroup.Text>
+                <InputGroup.Text></InputGroup.Text>
               </InputGroup.Prepend>
               <Button className="btn-adjust" variant="primary" type="submit">
                 Update
+              </Button>
+              <Button>
+                <i className="fas fa-play"></i>
               </Button>
             </InputGroup>
           </Form.Group>
