@@ -1,4 +1,10 @@
-import { GET_ASSET_LIST, SET_LOADING, SET_ERROR_MSG } from "../types/StockType";
+import {
+  GET_ASSET_LIST,
+  SET_LOADING,
+  SET_ERROR_MSG,
+  ADD_SELECT_OPTION,
+  DEL_SELECT_OPTION
+} from "../types/StockType";
 
 export const setLoading = () => {
   return {
@@ -29,5 +35,23 @@ export const getAssetList = () => async dispatch => {
       type: SET_ERROR_MSG,
       payload: err.response.statusText
     });
+  }
+};
+
+export const addTodo = optionList => {
+  try {
+    return { type: ADD_SELECT_OPTION, payload: optionList };
+  } catch (err) {
+    console.error(err.message);
+    return { type: ADD_SELECT_OPTION, payload: err.message.statusText };
+  }
+};
+
+export const deleteTodo = optionList => {
+  try {
+    return { type: DEL_SELECT_OPTION, payload: optionList };
+  } catch (err) {
+    console.error(err.message);
+    return { type: DEL_SELECT_OPTION, payload: err.message.statusText };
   }
 };

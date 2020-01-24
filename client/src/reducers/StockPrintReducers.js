@@ -1,7 +1,14 @@
-import { GET_ASSET_LIST, SET_ERROR_MSG, SET_LOADING } from "../types/StockType";
+import {
+  GET_ASSET_LIST,
+  SET_ERROR_MSG,
+  SET_LOADING,
+  ADD_SELECT_OPTION,
+  DEL_SELECT_OPTION
+} from "../types/StockType";
 
 const iniState = {
-  assetlist: []
+  assetlist: [],
+  optionList: []
 };
 
 export default (state = iniState, action) => {
@@ -16,6 +23,16 @@ export default (state = iniState, action) => {
       return {
         ...state,
         assetlist: action.payload
+      };
+    case ADD_SELECT_OPTION:
+      return { ...state, optionList: [action.payload, ...state.optionList] };
+
+    case DEL_SELECT_OPTION:
+      return {
+        ...state,
+        optionList: state.optionList.filter(
+          option => option._id !== action.payload
+        )
       };
     case SET_ERROR_MSG:
       console.log("error");

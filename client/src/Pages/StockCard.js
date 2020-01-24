@@ -3,6 +3,8 @@ import SearchSelect from "../components/SearchSelect";
 import { Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 //import FontAwesomeIcon from "react-fontawesome";
 
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
+
 import { useSelector, useDispatch } from "react-redux";
 import * as StockPrint from "../actions/StockPrintActions";
 
@@ -111,14 +113,8 @@ const StockCard = () => {
 
           <Form.Group as={Col} controlId="formStock">
             <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text></InputGroup.Text>
-              </InputGroup.Prepend>
               <Button className="btn-adjust" variant="primary" type="submit">
-                Update
-              </Button>
-              <Button>
-                <i className="fas fa-play"></i>
+                <i class="fas fa-edit"></i> Update
               </Button>
             </InputGroup>
           </Form.Group>
@@ -129,14 +125,14 @@ const StockCard = () => {
             variant="outline-primary"
             type="submit"
           >
-            Print Below List
+            <i class="fas fa-clipboard-list"></i> Print Below List
           </Button>
           <Button
             style={{ margin: 15 }}
             variant="outline-primary"
             type="submit"
           >
-            Print All Inventory Stock Card
+            <i class="fas fa-print"></i> Print All Inventory Stock Card
           </Button>
         </Row>
       </Form>

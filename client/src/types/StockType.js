@@ -1,3 +1,5 @@
 export const GET_ASSET_LIST = "GET_ASSET_LIST";
 export const SET_LOADING = "SET_LOADING";
 export const SET_ERROR_MSG = "SET_ERROR_MSG";
+export const ADD_SELECT_OPTION = "ADD_SELECT_OPTION";
+export const DEL_SELECT_OPTION = "DEL_SELECT_OPTION";
