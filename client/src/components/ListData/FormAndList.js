@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import TodoForm from "./TodoForm";
-import TodoList from "./TodoList";
+import SelectedList from "./SelectedList";
 
 import * as ListActions from "../../actions/StockPrintActions";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,7 +22,7 @@ const FormAndList = () => {
         }}
       />
 
-      <TodoList
+      <SelectedList
         todos={optionList}
         deleteTodo={dispatch(ListActions.deleteTodo)}
       />

@@ -8,15 +8,17 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
 import { useSelector, useDispatch } from "react-redux";
 import * as StockPrint from "../actions/StockPrintActions";
 
-const StockCard = () => {
+import SelectedList from "../../src/components/ListData/SelectedList";
+
+const StockCard = ({ saveTodo }) => {
   const asset = useSelector(state => state.stock.assetlist);
   const dispatch = useDispatch();
 
   const [selected, setSelected] = useState(null);
-  const [category, setCategory] = useState(null);
-  const [unit, setUnit] = useState(null);
-  const [rackno, setRackno] = useState(null);
-  const [rowno, setRowno] = useState(null);
+  const [category, setCategory] = useState("");
+  const [unit, setUnit] = useState("");
+  const [rackno, setRackno] = useState("");
+  const [rowno, setRowno] = useState("");
 
   const loadStockPrint = useCallback(async () => {
     try {
@@ -32,13 +34,18 @@ const StockCard = () => {
   }, [selected]);
   //// ung selected dito dapat para sa marker sa select
 
+  const optionList = useSelector(state => state.stock.optionList);
+
   const handleChange = selected => {
     setSelected(selected);
-    console.log(`Option selected:`, selected);
     setCategory(selected.category);
     setUnit(selected.unit);
     setRackno(selected.rackNo);
     setRowno(selected.rowNo);
+    console.log(`Option selected:`, selected);
+    dispatch(
+      StockPrint.addTodo(selected.label, selected.value, selected.assetCode)
+    );
   };
 
   return (
@@ -134,6 +141,14 @@ const StockCard = () => {
           >
             <i class="fas fa-print"></i> Print All Inventory Stock Card
           </Button>
+        </Row>
+        <Row className="form-adjust">
+          <Form.Group as={Col} controlId="formStock">
+            <SelectedList
+              todos={optionList}
+              deleteTodo={dispatch(StockPrint.deleteTodo)}
+            />
+          </Form.Group>
         </Row>
       </Form>
     </div>

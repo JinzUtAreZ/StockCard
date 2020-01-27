@@ -15,8 +15,7 @@ import StockReducer from "../src/reducers/StockPrintReducers";
 //import Tester from "./Pages/TestPages";
 import StockCard from "./Pages/StockCard";
 //import ButtonMDB from "./Pages/ButtonMDB";
-
-import TodoList from "../src/components/ListData/FormAndList";
+//import TodoList from "../src/components/ListData/FormAndList";
 
 const rootReducer = combineReducers({
   stock: StockReducer
@@ -29,9 +28,9 @@ function App() {
     <Provider store={store}>
       <div className="App">
         {/* <Tester /> */}
-        {/* <StockCard /> */}
+        <StockCard />
         {/* <ButtonMDB /> */}
-        <TodoList />
+        {/* <TodoList /> */}
       </div>
     </Provider>
   );
