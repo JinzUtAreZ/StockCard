@@ -4,20 +4,20 @@ const listStyle = {
   marginBottom: "5px"
 };
 
-const SelectedList = ({ todos, deleteTodo }) => (
+const SelectedList = ({ todos, clickDelete }) => (
   <Fragment>
     {todos.length > 0 && <h4> Printed List: </h4>}
-    <ul class="list-group">
+    <ul className="list-group">
       {todos.map((todo, index) => (
         <li
-          class="list-group-item z-depth-2 "
+          className="list-group-item z-depth-2 "
           style={listStyle}
-          key={index.toString()}
+          key={todo.value}
         >
-          {todo}
+          {todo.label}
           <i
-            class="fas fa-trash float-right hoverable grey p-2 white-text rounded-circle"
-            onClick={deleteTodo}
+            className="fas fa-trash float-right hoverable grey p-2 white-text rounded-circle"
+            onClick={() => clickDelete(todo.value)}
           ></i>
         </li>
       ))}

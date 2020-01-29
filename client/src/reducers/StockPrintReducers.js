@@ -31,7 +31,7 @@ export default (state = iniState, action) => {
       return {
         ...state,
         optionList: state.optionList.filter(
-          option => option._id !== action.payload
+          option => option.value !== action.payload
         )
       };
     case SET_ERROR_MSG:

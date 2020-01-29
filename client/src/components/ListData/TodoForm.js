@@ -13,21 +13,21 @@ const TodoForm = ({ saveTodo }) => {
 
   return (
     <form
-      onSubmit={event => {
-        event.preventDefault();
+    // onSubmit={event => {
+    //   event.preventDefault();
 
-        saveTodo(value);
-        setValue("");
-      }}
+    //   saveTodo(value);
+    //   setValue("");
+    // }}
     >
-      <MDBInput
+      {/* <MDBInput
         label="Material input"
         variant="outlined"
         placeholder="Add todo"
         margin="normal"
         onChange={onChange}
         value={value}
-      />
+      /> */}
     </form>
   );
 };

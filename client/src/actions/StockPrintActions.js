@@ -47,9 +47,9 @@ export const addTodo = optionList => {
   }
 };
 
-export const deleteTodo = optionList => {
+export const deleteTodo = optionId => {
   try {
-    return { type: DEL_SELECT_OPTION, payload: optionList };
+    return { type: DEL_SELECT_OPTION, payload: optionId };
   } catch (err) {
     console.error(err.message);
     return { type: DEL_SELECT_OPTION, payload: err.message.statusText };

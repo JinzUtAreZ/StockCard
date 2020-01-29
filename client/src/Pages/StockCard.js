@@ -3,7 +3,8 @@ import SearchSelect from "../components/SearchSelect";
 import { Row, Col, Form, Button, InputGroup } from "react-bootstrap";
 //import FontAwesomeIcon from "react-fontawesome";
 
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
+import { MDBInput } from "mdbreact";
+// import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdbreact";
 
 import { useSelector, useDispatch } from "react-redux";
 import * as StockPrint from "../actions/StockPrintActions";
@@ -43,9 +44,24 @@ const StockCard = ({ saveTodo }) => {
     setRackno(selected.rackNo);
     setRowno(selected.rowNo);
     console.log(`Option selected:`, selected);
-    dispatch(
-      StockPrint.addTodo(selected.label, selected.value, selected.assetCode)
-    );
+    var elementPos = optionList
+      .map(function(x) {
+        return x.value;
+      })
+      .indexOf(selected.value);
+    if (elementPos == -1) {
+      dispatch(
+        StockPrint.addTodo({
+          label: selected.label,
+          value: selected.value,
+          assetcode: selected.assetCode
+        })
+      );
+    }
+  };
+
+  const deleteItems = e => {
+    dispatch(StockPrint.deleteTodo(e));
   };
 
   return (
@@ -109,19 +125,31 @@ const StockCard = ({ saveTodo }) => {
           </Form.Group>
 
           <Form.Group as={Col} controlId="formStock">
-            <Form.Label>Rack No:</Form.Label>
-            <Form.Control type="text" placeholder="" value={rackno} />
+            {/* <Form.Label>Rack No:</Form.Label> */}
+            {/* <Form.Control type="text" placeholder="" value={rackno} /> */}
+            <MDBInput
+              label="Rack No:"
+              placeholder=""
+              type="text"
+              value={rackno}
+            />
           </Form.Group>
 
           <Form.Group as={Col} controlId="formStock">
-            <Form.Label>Row No:</Form.Label>
-            <Form.Control type="text" placeholder="" value={rowno} />
+            {/* <Form.Label>Row No:</Form.Label>
+            <Form.Control type="text" placeholder="" value={rowno} /> */}
+            <MDBInput
+              label="Row No:"
+              placeholder=""
+              type="text"
+              value={rowno}
+            />
           </Form.Group>
 
           <Form.Group as={Col} controlId="formStock">
             <InputGroup>
               <Button className="btn-adjust" variant="primary" type="submit">
-                <i class="fas fa-edit"></i> Update
+                <i className="fas fa-edit"></i> Update
               </Button>
             </InputGroup>
           </Form.Group>
@@ -132,22 +160,19 @@ const StockCard = ({ saveTodo }) => {
             variant="outline-primary"
             type="submit"
           >
-            <i class="fas fa-clipboard-list"></i> Print Below List
+            <i className="fas fa-clipboard-list"></i> Print Below List
           </Button>
           <Button
             style={{ margin: 15 }}
             variant="outline-primary"
             type="submit"
           >
-            <i class="fas fa-print"></i> Print All Inventory Stock Card
+            <i className="fas fa-print"></i> Print All Inventory Stock Card
           </Button>
         </Row>
         <Row className="form-adjust">
           <Form.Group as={Col} controlId="formStock">
-            <SelectedList
-              todos={optionList}
-              deleteTodo={dispatch(StockPrint.deleteTodo)}
-            />
+            <SelectedList todos={optionList} clickDelete={deleteItems} />
           </Form.Group>
         </Row>
       </Form>
